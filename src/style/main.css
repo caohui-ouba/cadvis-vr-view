@@ -1,0 +1,28 @@
+.msg-box {
+    margin: 0 auto;
+    top: 100px;
+    position: relative;
+    width: 800px;
+    height: 600px;
+}
+
+.msg-box textarea {
+    width: 100%;
+    height: 400px;
+    font-size: 25px;
+}
+
+.msg-box input {
+    width: 700px;
+    height: 50px;
+    font-size: 25px;
+}
+
+.msg-box button {
+    position: relative;
+    left: 20px;
+    height: 50px;
+    width: 80px;
+    font-size: 25px;
+
+}

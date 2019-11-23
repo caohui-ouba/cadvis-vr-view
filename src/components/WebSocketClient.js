@@ -8,18 +8,19 @@ export default class WebSocketClient extends Component {
     constructor() {
         super();
         this.state = {
-            message: '',
-            content: []
+            lt: 0,
+            ll: 0,
+            rt: 0,
+            rl: 0
         }
     }
     render() {
 
         return (
             <div className='msg-box'>
-                <textarea readOnly={true} value={this.state.content.join('\n')}></textarea><br />
-                <input value={this.state.message} onChange={this.messageChange} />
-                <button onClick={this.sendMsg}>send</button>
-            </div>
+                <div className='left' style={{ top: this.state.lt, left: this.state.ll }}></div>
+                <div className='right' style={{ top: this.state.rt, left: this.state.rl }}></div>
+            </div >
         )
     }
 
@@ -30,25 +31,15 @@ export default class WebSocketClient extends Component {
 
         client.onmessage = (msg) => {
             console.log(msg.data);
-            let newList = JSON.parse(JSON.stringify(this.state.content));
-            newList.push(msg.data);
+            let pos = msg.data.split(',')
+            pos[0] = parseInt(pos[0]);
+            pos[1] = parseInt(pos[1]);
             this.setState({
-                content: newList
+                ll: pos[0],
+                lt: pos[1],
+                rl: 1200 - pos[0],
+                rt: 800 - pos[1]
             })
         }
-    }
-    sendMsg = () => {
-        client.send(this.state.message);
-        this.setState({
-            message: ''
-        });
-    }
-
-    messageChange = (input) => {
-        const msg = input;
-
-        this.setState({
-            message: msg.target.value
-        });
     }
 }
